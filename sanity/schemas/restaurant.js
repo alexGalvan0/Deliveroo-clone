@@ -54,7 +54,7 @@ export default {
       title: 'Category',
       validation: (Rule) => Rule.required(),
       type: 'reference',
-      to: [{ typep: 'category' }],
+      to: [{ type: 'category' }],
     },
     {
       name: 'dishes',
