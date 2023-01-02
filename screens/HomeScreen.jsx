@@ -66,10 +66,10 @@ const HomeScreen = () => {
                 <Categories />
                 {/* Featured rows */}
 
-                {featuredCategories.map(category =>(
+                {featuredCategories?.map(category =>(
                     <FeaturedRow
-                        key={category.id}
-                        id={category.id}
+                        key={category._id}
+                        id={category._id}
                         title={category.name}
                         description={category.short_description}
                     />

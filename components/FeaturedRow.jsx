@@ -1,9 +1,29 @@
 import { View, Text, ScrollView } from 'react-native'
-import React from 'react'
+import { useState, useEffect } from 'react'
 import { ArrowRightIcon } from 'react-native-heroicons/outline'
 import RestaurantCard from './RestaurantCard'
+import sanityClient from '../sanity'
 
-const FeaturedRow = ({ title, description }) => {
+const FeaturedRow = ({ id, title, description }) => {
+    const [restaurants, setRestaurants] = useState([])
+    useEffect(() => {
+        sanityClient.fetch(
+            `*[_type == 'featured' && _id == $id]{
+                restaurants[] ->{
+                  ...,
+                  dishes[] ->,
+                  type->{
+                    name
+                  }
+                }
+              }[0]`,
+            { id }
+        )
+            .then(data => {
+                setRestaurants(data?.restaurants)
+            })
+    }, [])
+    console.log(restaurants)
     return (
         <View>
             <View className='mt-4 flex-row items-center justify-between px-4'>
@@ -21,54 +41,22 @@ const FeaturedRow = ({ title, description }) => {
                 className='pt-4'
             >
                 {/*RestaurantCards...*/}
+                {restaurants?.map(restaurant => (
                 <RestaurantCard
-                    id='123'
-                    imgUrl='https://links.papareact.com/gn7'
-                    title='Yo! Sushi'
-                    rating={4.5}
-                    genre='Japaneese'
-                    address='123 Main St.'
-                    short_description='This is a short description'
-                    dishes={[]}
-                    long={20}
-                    lat={0}
+                    key={restaurant._id}
+                    id={restaurant._id}
+                    imgUrl={restaurant.image}
+                    title={restaurant.restaurant}
+                    rating={restaurant.rating}
+                    genre={restaurant.type.name}
+                    address={restaurant.address}
+                    short_description={restaurant.short_description}
+                    dishes={restaurant.dishes}
+                    long={restaurant.long}
+                    lat={restaurant.lat}
                 />
-                                <RestaurantCard
-                    id='123'
-                    imgUrl='https://links.papareact.com/gn7'
-                    title='Yo! Sushi'
-                    rating={4.5}
-                    genre='Japaneese'
-                    address='123 Main St.'
-                    short_description='This is a short description'
-                    dishes={[]}
-                    long={20}
-                    lat={0}
-                />
-                                <RestaurantCard
-                    id='123'
-                    imgUrl='https://links.papareact.com/gn7'
-                    title='Yo! Sushi'
-                    rating={4.5}
-                    genre='Japaneese'
-                    address='123 Main St.'
-                    short_description='This is a short description'
-                    dishes={[]}
-                    long={20}
-                    lat={0}
-                />
-                                <RestaurantCard
-                    id='123'
-                    imgUrl='https://links.papareact.com/gn7'
-                    title='Yo! Sushi'
-                    rating={4.5}
-                    genre='Japaneese'
-                    address='123 Main St.'
-                    short_description='This is a short description'
-                    dishes={[]}
-                    long={20}
-                    lat={0}
-                />
+                ))}
+
             </ScrollView>
         </View>
     )
