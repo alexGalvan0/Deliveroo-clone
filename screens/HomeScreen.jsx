@@ -58,7 +58,7 @@ const HomeScreen = () => {
                 <AdjustmentsHorizontalIcon />
             </View>
             {/* body */}
-            <ScrollView className='bg-gray-100 pb-36'
+            <ScrollView className='bg-gray-100 mb-20'
                 constentContainerStyle={{
                     paddintBottom: 100
                 }}>
