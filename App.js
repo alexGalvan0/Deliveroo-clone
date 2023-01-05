@@ -17,14 +17,16 @@ export default function App() {
 
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Restaurant" component={RestaurantScreen} />
-            <Stack.Screen name="Basket" component={BasketScreen}
-              options={{ presentation: 'modal', headerShadowVisible: false }}
+            <Stack.Screen 
+              name="Basket" 
+              component={BasketScreen}
+              options={{ presentation: 'modal', headerShadow: false }}
             />
 
           </Stack.Navigator>
         </TailwindProvider>
       </Provider>
-    </NavigationContainer>
+    </NavigationContainer> 
   );
 }
 

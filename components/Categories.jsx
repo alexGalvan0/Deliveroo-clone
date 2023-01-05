@@ -14,7 +14,7 @@ const Categories = () => {
       setCategoriles(data)
     })
   }, [])
-  console.log(categories)
+
   return (
     <ScrollView
       contentContainerStyle={{ paddingHorizontal: 15, paddingTop: 10 }}
